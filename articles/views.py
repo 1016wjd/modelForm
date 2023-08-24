@@ -31,7 +31,13 @@ def create(request):
         if form.is_valid():
             article = form.save()
             return redirect('articles:detail', id=article.id)
+        else:
+            # form = ArticleForm()
 
+            context = {
+                'form': form,
+            }
+            return render(request, 'create.html', context)
 
     # 사용자가 데이터를 입력할 수 있도록 빈 종이를 리턴 (GET인 경우)
     else:
