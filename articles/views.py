@@ -12,6 +12,8 @@ def index(request):
 
     return render(request, 'index.html', context)
     
+
+
 def detail(request,id):
     article = Article.objects.get(id=id)
 
@@ -20,6 +22,7 @@ def detail(request,id):
     }
 
     return render(request, 'detail.html', context)
+
 
 
 def create(request):
@@ -76,8 +79,31 @@ def create(request):
 
     
 
+
 def delete(request, id):
     article = Article.objects.get(id=id)
     article.delete()
 
     return redirect('articles:index')
+
+
+
+def update(request, id):
+    article = Article.objects.get(id=id)
+    
+    if request.method == 'POST':
+        # 사용자가 입력한 새로운 정보
+        form = ArticleForm(request.POST, instance=article)
+        
+        if form.is_valid():
+            article = form.save()
+            return redirect('articles:detail', id=id)
+
+    else:
+        form = ArticleForm(instance=article)
+
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'update.html', context)
