@@ -75,3 +75,9 @@ def create(request):
     return render(request, 'create.html', context)
 
     
+
+def delete(request, id):
+    article = Article.objects.get(id=id)
+    article.delete()
+
+    return redirect('articles:index')

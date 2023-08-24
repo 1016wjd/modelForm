@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
+    <!-- action 이 빈 공간일 경우 다시 create로 !  -->
     <form action="" method="POST">
         {% csrf_token %}
         {{form}}
